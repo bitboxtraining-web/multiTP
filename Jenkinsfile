@@ -19,7 +19,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    dir('backend-demo') {
+                    dir('mon-projet') {
                         sh """
                             mvn clean verify sonar:sonar \
                                 -Dsonar.projectKey=demo-backend \
@@ -34,7 +34,7 @@ pipeline {
         /* ----- 2. BUILD pour TOUT ----- */
         stage('Build Maven') {
             steps {
-                dir('backend-demo') {
+                dir('mon-projet') {
                     sh "mvn clean package -DskipTests"
                 }
             }
@@ -49,7 +49,7 @@ pipeline {
                 }
             }
             steps {
-                dir('backend-demo') {
+                dir('mon-projet') {
                     sh "mvn test"
                 }
             }
@@ -65,7 +65,7 @@ pipeline {
                 }
             }
             steps {
-                dir('backend-demo') {
+                dir('mon-projet') {
                     sh """
                         docker build -t ${REGISTRY}/backend:${BRANCH_NAME} .
                         docker push ${REGISTRY}/backend:${BRANCH_NAME}
