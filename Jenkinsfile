@@ -22,7 +22,7 @@ pipeline {
                     dir('mon-projet') {
                         sh """
                             mvn clean verify sonar:sonar \
-                                -Dsonar.projectKey=demo-backend \
+                                -Dsonar.projectKey=mon-projet \
                                 -Dsonar.host.url=$SONAR_URL \
                                 -DskipTests
                         """
